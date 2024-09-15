@@ -1,0 +1,15 @@
+venv/
+
+__pycache__/
+*.pyc
+*.pyo
+
+.env
+
+.vscode/
+.idea/
+
+*.sql
+*.myd
+*.myi
+*.frm
