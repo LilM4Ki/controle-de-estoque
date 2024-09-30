@@ -1,6 +1,7 @@
-from flask import render_template, request, Blueprint, flash, redirect, url_for
-from models.produtos import Produtos, mysql_db
+from flask import Blueprint, redirect, render_template, request, url_for
 from peewee import IntegrityError
+
+from models.produtos import Produtos, mysql_db
 
 rota_produtos = Blueprint('produtos', __name__)
 
@@ -30,3 +31,9 @@ def adicionar():
     else:
         novo_produto = Produtos.create(id=id, nome=nome, descricao=descricao, preco=preco, quantidade=quantidade)
         return render_template('produto.html', produto=novo_produto), 200
+    
+@rota_produtos.route('/<int:produto_id>/delete', methods=["DELETE"])
+def deletar_produto(produto_id):
+    produto = Produtos.get_by_id(produto_id)
+    produto.delete_instance()
+    return '', 200
