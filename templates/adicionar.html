@@ -1,35 +1,116 @@
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-<form class="row g-3" hx-post="{{ url_for('produtos.adicionar') }}" method="POST" hx-target="#lista-produtos-target" hx-swap="beforeend" hx-on::after-request="if(event.detail.successful) this.reset()">
-    <div class="col-md-2">
-        <label class="form-label">ID:</label>
-        <input class="form-control" type="number" name="id" required>
-    </div>
+<form
+  {%
+  if
+  produto
+  %}
+  hx-put="{{url_for('produtos.editar_produto', produto_id=produto.id)}}"
+  method="PUT"
+  hx-target="#produto-{{produto.id}}"
+  hx-swap="outerHTML"
+  {%
+  else
+  %}
+  hx-post="{{ url_for('produtos.adicionar') }}"
+  method="POST"
+  hx-target="#lista-produtos-target"
+  hx-swap="beforeend"
+  {%
+  endif
+  %}
+  class="row g-3"
+  hx-on::after-request="if(event.detail.successful) window.location.reload()"
+>
+  <div class="col-md-2">
+    <label class="form-label">ID:</label>
+    <input
+      class="form-control"
+      type="number"
+      name="id"
+      required
+      {%
+      if
+      produto
+      %}
+      readonly
+      value="{{produto.id}}"
+      {%
+      endif
+      %}
+    />
+  </div>
 
-    <div class="col-md-3">
-        <label class="form-label">Nome:</label>
-        <input class="form-control" type="text" name="nome" required>
-    </div>
-    <div class="col-md-3">
-        <label class="form-label">Descricão:</label>
-        <input class="form-control" type="text" name="descricao" required>
-    </div>
-    <div class="col-md-2">
-        <label class="form-label">Preco:</label>
-        <input class="form-control" type="number" step="0.01" name="preco" required>
-    </div>
-    <div class="col-md-2">
-        <label class="form-label">Quantidade:</label>
-        <input class="form-control" type="number" name="quantidade" required>
-    </div>
-    <div class="col-12">
-        <button class="btn btn-primary" type="submit">Enviar</button>
-    </div>
+  <div class="col-md-3">
+    <label class="form-label">Nome:</label>
+    <input
+      class="form-control"
+      type="text"
+      name="nome"
+      required
+      {%
+      if
+      produto
+      %}
+      value="{{produto.nome}}"
+      {%
+      endif
+      %}
+    />
+  </div>
+  <div class="col-md-3">
+    <label class="form-label">Descricão:</label>
+    <input
+      class="form-control"
+      type="text"
+      name="descricao"
+      required
+      {%
+      if
+      produto
+      %}
+      value="{{produto.descricao}}"
+      {%
+      endif
+      %}
+    />
+  </div>
+  <div class="col-md-2">
+    <label class="form-label">Preco:</label>
+    <input
+      class="form-control"
+      type="number"
+      step="0.01"
+      name="preco"
+      required
+      {%
+      if
+      produto
+      %}
+      value="{{produto.preco}}"
+      {%
+      endif
+      %}
+    />
+  </div>
+  <div class="col-md-2">
+    <label class="form-label">Quantidade:</label>
+    <input
+      class="form-control"
+      type="number"
+      name="quantidade"
+      required
+      {%
+      if
+      produto
+      %}
+      value="{{produto.quantidade}}"
+      {%
+      endif
+      %}
+    />
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">
+      {%if produto%} Salvar Produto{% else %} Adicionar Produto {%endif%}
+    </button>
+  </div>
 </form>

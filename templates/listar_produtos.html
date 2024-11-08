@@ -1,16 +1,14 @@
 <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Descricao</th>
-        <th scope="col">Preco</th>
-        <th scope="col">Quantidade</th>
-      </tr>
-    </thead>
-    <tbody id="lista-produtos-target">
-        {% for produto in produtos %}
-            {%include 'produto.html'%}
-        {% endfor %}
-    </tbody>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Descricao</th>
+      <th scope="col">Preco</th>
+      <th scope="col">Quantidade</th>
+    </tr>
+  </thead>
+  <tbody id="lista-produtos-target">
+    {% for produto in produtos %} {%include 'produto.html'%} {% endfor %}
+  </tbody>
 </table>

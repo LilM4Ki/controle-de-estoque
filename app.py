@@ -1,4 +1,5 @@
 from flask import Flask
+
 from routes.home import home_route
 from routes.produtos import rota_produtos
 

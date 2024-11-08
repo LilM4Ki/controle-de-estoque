@@ -37,3 +37,30 @@ def deletar_produto(produto_id):
     produto = Produtos.get_by_id(produto_id)
     produto.delete_instance()
     return '', 200
+
+@rota_produtos.route('/<int:produto_id>/edit')
+def form_editar_produto(produto_id):
+    produto = Produtos.get_or_none(produto_id)
+    return render_template('adicionar.html', produto=produto)
+
+@rota_produtos.route('/<int:produto_id>/edit_product',methods=['PUT'])
+def editar_produto(produto_id):
+    data = request.form
+    
+    produto_editado = Produtos.get_by_id(produto_id)
+    
+    produto_editado.nome = data['nome']
+    produto_editado.descricao = data['descricao']
+    produto_editado.preco = data['preco']
+    produto_editado.quantidade = data['quantidade']
+    produto_editado.save()
+    return render_template("produto.html", produto=produto_editado)
+    
+@rota_produtos.route('/search')
+def pesquisa():
+    q = request.args.get('q')
+    if q:
+        results = Produtos.select().where(Produtos.nome.contains(q) | Produtos.descricao.contains(q))
+    else:
+        results = Produtos.select()
+    return render_template('pesquisa_parcial.html', results=results)
