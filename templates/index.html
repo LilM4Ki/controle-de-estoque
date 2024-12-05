@@ -23,6 +23,7 @@
   <body>
     <div class="container">
       <h1 class="text-center">Gestão de Produtos</h1>
+      <p>Seja bem vindo(a): {{ user.username }} <a href="{{url_for('auth.logout')}}" class="link-underline-light">Sair</a></p>
       <div class="container mt-5">
         <h3 class="text-center">Pesquisar Produtos</h3>
         <div class="row">

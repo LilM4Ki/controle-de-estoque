@@ -1,7 +1,7 @@
-from peewee import Model, MySQLDatabase, CharField, IntegerField, FloatField
+import os
 
 from dotenv import load_dotenv
-import os
+from peewee import CharField, FloatField, IntegerField, Model, MySQLDatabase
 
 load_dotenv()
 

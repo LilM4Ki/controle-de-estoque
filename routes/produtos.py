@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, url_for
+from flask_login import login_required
 from peewee import IntegrityError
 
 from models.produtos import Produtos, mysql_db
@@ -17,6 +18,7 @@ def form_adicionar():
     return render_template('adicionar.html')
 
 @rota_produtos.route('/', methods=["POST"])
+@login_required
 def adicionar():
     id = int(request.form['id'])
     nome = request.form['nome'].strip()
